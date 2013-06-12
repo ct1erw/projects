@@ -20,7 +20,6 @@ set xlabel 'Time (s)'
 #set label 1 strftime("%T", time(0)) at screen 0.1,0.9
 set grid
 
-
 plot 'data.txt' using 0:4 with lines lw 1 title 'Power' axis x1y1, \
      'data.txt' using 0:2 with lines lw 1 title 'Voltage' axis x1y2
 
