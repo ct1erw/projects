@@ -11,4 +11,4 @@ gpib:	gpib.o
 	$(CC) -o $@ $<
 
 clean:
-	rm -f gpib.o
+	rm -f gpib.o gpib
