@@ -129,7 +129,6 @@ int main()
     subsequent reads will return the remaining chars. res will be set
     to the actual number of characters actually read */
 
- 
     res = read(fd,buf,255); 
     buf[res]=0;             /* set end of string, so we can printf */
     /* printf(":%s:%d\n", buf, res); */
@@ -148,7 +147,7 @@ int main()
     	printf("dac\n");
     }
 
- /* restore the old port settings */
+    /* restore the old port settings */
     tcsetattr(fd,TCSANOW,&oldtio);
 
     exit(0);
