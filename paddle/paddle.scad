@@ -18,9 +18,14 @@ module nut_cavity() {
 
 module base()
 {
-	difference() {		// base with holes		
+	// base with holes
+	difference() {				
 		cube([BASE,BASE,6]);
-		translate([5,5,0]) nut_cavity();	// #1
+		// hex nut holes
+		translate([5,5,0+6]) mirror([0,0,1]) nut_cavity();	// #1
+		translate([BASE-5,5,0+6]) mirror([0,0,1]) nut_cavity();	// #2
+		translate([5,BASE-5,0+6]) mirror([0,0,1]) nut_cavity();	// #3
+		translate([BASE-5,BASE-5,0+6]) mirror([0,0,1]) nut_cavity();	// #4
 	}
 }
 
@@ -29,10 +34,11 @@ module arm()
 	// Design rules: construct for 3D printing, then rotate
 	difference() {
 		union() {
-			cube([5,30,5]);
-			translate([0,30,0]) cube([15,5,5]);
+			cube([5,BASE-5,5]); //
+			translate([0,BASE-5,0]) cube([15,5,5]); //
+			translate([2,-20,0]) rotate([0,-90,0]) cube([15,20,2]);  // palheta
 		}
-		translate([5,0,0]) cylinder(r=3,h=6);
+		translate([5,0,0]) cylinder(r=3,h=6); // curvatura
 	}
 }
 
@@ -42,31 +48,25 @@ module foot() {
 
 module key()
 {
-		// add parameter to explode
 		ARM_GAP = 2;
-		EXPLODE = 5;
+		EXPLODE = 0;
 
 		// base
 		base();
 
 		// arms
-		translate([BASE/2+ARM_GAP,0,8]) arm();  // right arm
-		translate([BASE/2-ARM_GAP,0,8]) mirror([1,0,0]) arm();  // left arm
+		translate([BASE/2+ARM_GAP,0,8]) color("Red") arm();  				// right arm
+		translate([BASE/2-ARM_GAP,0,8]) mirror([1,0,0]) color("Red") arm();  // left arm
 		
-		// feet
-		translate([5,5,-5-EXPLODE]) foot();
-		translate([BASE-5,5,-5-EXPLODE]) foot();
-		translate([5,BASE-5,-5-EXPLODE]) foot();
-		translate([BASE-5,BASE-5,-5-EXPLODE]) foot();
-
-		// feet screws
-		translate([5,5,6+20]) mirror([0,0,1]) nut_cavity();
-		translate([BASE-5,5,6+20]) mirror([0,0,1]) nut_cavity();
-		translate([5,BASE-5,6+20]) mirror([0,0,1]) nut_cavity();
-		translate([BASE-5,BASE-5,6+20]) mirror([0,0,1]) nut_cavity();
+		// 4 feet and 4 screws
+		translate([BASE/2,BASE/2,0])		// center in base
+		for(r=[0:4]) {
+			rotate([0,0,r*360/4]) {
+				translate([BASE/2-5,BASE/2-5,-EXPLODE]) mirror([0,0,1]) color("Black")foot();  // feet
+				translate([BASE/2-5,BASE/2-5,6+EXPLODE]) mirror([0,0,1]) color("Grey")nut_cavity(); // screws
+			}
+		}
 }
 
-//nut_cavity();
-//arm();
-//base();	// base
 key();
+
