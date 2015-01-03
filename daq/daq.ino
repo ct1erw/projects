@@ -1,13 +1,13 @@
 //// AvgDAQ
 /// Makes the potentially dangerous assumption that the analog pins are numbered in sequence, starting at A0
 
-#define NANA  2
+// Original code: http://rwsarduino.blogspot.pt/2014/12/python-plots-from-serial-input.html
 
 //// Constants
 int d = 1;          // delay in microseconds for ADC average
 int navg = 10;      // number of samples to average
 int nan = 6;        // number of analog channels
-int nrpt = 200;     // time between lines of data in ms
+int nrpt = 500;     // time between lines of data in ms
 int ndisp = 20000;  // maximum number of lines to display
 
 void setup() {
@@ -15,6 +15,9 @@ void setup() {
   for(int i = 0; i < nan; i++) {
     pinMode(A0 + i, INPUT);
   }
+  
+  // initialize digital pin 13 as an output for the LED
+  pinMode(13, OUTPUT);    
   
   // configure serial
   Serial.begin(57600);
@@ -37,8 +40,14 @@ void loop() {
     linesShown++;
   }
   
+  // blink LED
+  digitalWrite(13, LOW);   // turn the LED off
+  
   // delay
   while(millis()%nrpt);
+  
+  // blink LED
+  digitalWrite(13, HIGH);    // turn the LED on
 }
 
 void getAvgDAQ(unsigned long *sums) {
