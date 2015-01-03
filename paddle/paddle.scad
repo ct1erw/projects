@@ -2,7 +2,7 @@
 
 // Base dimensions
 $fn = 60;
-BASE = 50;
+BASE = 60;
 
 module nut_cavity() {
 	// Nut dimensions
@@ -44,7 +44,7 @@ module key()
 {
 		// add parameter to explode
 		ARM_GAP = 2;
-		EXPLODE = 0;
+		EXPLODE = 5;
 
 		// base
 		base();
