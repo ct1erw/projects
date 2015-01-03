@@ -1,3 +1,4 @@
+# Original code: http://rwsarduino.blogspot.pt/2014/12/python-plots-from-serial-input.html
 import matplotlib.pyplot as plt
 import time
 import serial
