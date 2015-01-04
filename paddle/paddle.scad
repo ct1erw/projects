@@ -36,7 +36,7 @@ module arm()
 	difference() {
 		union() {
 			cube([5,BASE-5,5]); //
-			translate([0,BASE-5,0]) cube([15,5,5]); //
+			//translate([0,BASE-5,0]) cube([15,5,5]); //
 			translate([2,-20,0]) rotate([0,-90,0]) cube([15,20,2]);  // palheta
 			translate([0,0,5]) cube([5,15,10]);
 		}
@@ -53,10 +53,10 @@ module foot() {
 	}
 }
 
-module key()
+module assembled_key()
 {
 		ARM_GAP = 2;
-		EXPLODE = 0;
+		EXPLODE = 10;
 
 		// base
 		translate([0,0,5]) color("Grey") base();
@@ -75,4 +75,5 @@ module key()
 		}
 }
 
-key();
+assembled_key();
+//arm();
