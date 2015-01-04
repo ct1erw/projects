@@ -32,18 +32,25 @@ module base()
 module arm()
 {
 	// Design rules: construct for 3D printing, then rotate
+	// rossetas for M3 nuts
 	difference() {
 		union() {
 			cube([5,BASE-5,5]); //
 			translate([0,BASE-5,0]) cube([15,5,5]); //
 			translate([2,-20,0]) rotate([0,-90,0]) cube([15,20,2]);  // palheta
+			translate([0,0,5]) cube([5,15,10]);
 		}
-		translate([5,0,0]) cylinder(r=3,h=6); // curvatura
+		translate([5,0,-5]) cylinder(r=3,h=25); // curvatura
+		translate([-5,15,15]) rotate([0,90,0]) cylinder(r=10,h=15); // curvatura
 	}
 }
 
 module foot() {
-	cylinder(h=5, d1=5, d2=4);
+	difference() {
+		cylinder(h=5, d1=7, d2=6);
+		translate([0,0,-1]) cylinder(h=8, d=3);
+		translate([0,0, 1]) cylinder(h=8, d=5);
+	}
 }
 
 module key()
@@ -52,21 +59,20 @@ module key()
 		EXPLODE = 0;
 
 		// base
-		base();
+		translate([0,0,5]) color("Grey") base();
 
 		// arms
-		translate([BASE/2+ARM_GAP,0,8]) color("Red") arm();  				// right arm
-		translate([BASE/2-ARM_GAP,0,8]) mirror([1,0,0]) color("Red") arm();  // left arm
+		translate([BASE/2+ARM_GAP,0,5+8]) color("Red") arm();  				// right arm
+		translate([BASE/2-ARM_GAP,0,5+8]) mirror([1,0,0]) color("Red") arm();  // left arm
 		
 		// 4 feet and 4 screws
-		translate([BASE/2,BASE/2,0])		// center in base
-		for(r=[0:4]) {
-			rotate([0,0,r*360/4]) {
+		translate([BASE/2,BASE/2,5])		// center the base
+		for(r=[0,90,180,270]) {
+			rotate(a=r, v=[0,0,1]) {
 				translate([BASE/2-5,BASE/2-5,-EXPLODE]) mirror([0,0,1]) color("Black")foot();  // feet
-				translate([BASE/2-5,BASE/2-5,6+EXPLODE]) mirror([0,0,1]) color("Grey")nut_cavity(); // screws
+				translate([BASE/2-5,BASE/2-5,6+EXPLODE]) mirror([0,0,1]) color("Blue")nut_cavity(); // screws
 			}
 		}
 }
 
 key();
-
