@@ -32,7 +32,7 @@ module base()
 module arm()
 {
 	// Design rules: construct for 3D printing, then rotate
-	// rossetas for M3 nuts
+	// rosetas for M3 nuts
 	difference() {
 		union() {
 			cube([5,BASE-5,5]); //
