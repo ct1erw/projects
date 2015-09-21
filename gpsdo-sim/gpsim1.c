@@ -27,7 +27,7 @@ double efc_resolution (double efc, double dacbits);
 
 char *Tool;
 int Verbose = 1;
-#define FPRINTF Verbose && fprintf
+#define FPRINTF fprintf
 
 int main (int argc, char *argv[])
 {
