@@ -7,7 +7,7 @@ OBJECTS=helloworld.c
 
 all: helloworld.hex
 
-%.hex: $(TARGET)
+%.hex: %.out
 	avr-objcopy -O ihex -R .eeprom $< $@
 
 $(TARGET): $(OBJECTS)
