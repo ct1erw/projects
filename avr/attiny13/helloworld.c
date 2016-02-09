@@ -5,6 +5,18 @@
 // Blink led on PB4 (pin 3)
 // Clock frequency???
 
+/*
+Programmer connections to attiny13
+
+Prog	AVR t13
+---------------
+MISO	6
+SCK	7
+RESET	1
++5V	8
+MOSI	5
+GND	4
+*/
 
 int main(void)
 {
