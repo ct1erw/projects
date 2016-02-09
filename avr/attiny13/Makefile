@@ -1,6 +1,9 @@
 #
-PROG_DEV=/dev/cu.usbmodem1441
-PROG_TYPE=avrisp
+#PROG_DEV=/dev/cu.usbmodem1441
+#PROG_TYPE=avrisp
+PROG_TYPE=usbasp
+PROG_DEV=usb
+#
 #
 TARGET=helloworld.out
 OBJECTS=helloworld.c
