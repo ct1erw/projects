@@ -3,14 +3,13 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-int
-main (void)
+int main (void)
 {
-    DDRB |= _BV(DDB0); 
-    
-    while(1) 
+    DDRB |= _BV(DDB5);
+
+    while(1)
     {
-        PORTB ^= _BV(PB0);
-        _delay_ms(1000);
+        PORTB ^= _BV(PB5);
+        _delay_ms(500);
     }
 }
