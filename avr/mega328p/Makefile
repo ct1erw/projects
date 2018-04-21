@@ -9,9 +9,8 @@ a.out: helloworld.c
 clean:
 	rm -rf *.o *.hex a.out
 
-upload:
+upload:	a.hex
 	avrdude -c usbasp -p m328p -U flash:w:a.hex
 
 #fuse:
 #	sudo avrdude -c avrisp -P /dev/cu.usbmodem1441 -p m328p -U lfuse:w:0x7a:m -U hfuse:w:0xff:m
-
