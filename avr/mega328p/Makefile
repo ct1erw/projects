@@ -1,16 +1,19 @@
-all:	a.hex
+CC=avr-gcc
+CFLAGS=-Wall -O2 -mmcu=atmega328p
 
-a.hex: a.out
-	avr-objcopy -O ihex -R .eeprom a.out a.hex
+all:	helloworld.hex
 
-a.out: helloworld.c
-	avr-gcc -Wall -O2 -mmcu=atmega328p helloworld.c -o a.out
+%.hex: %.out
+	avr-objcopy -O ihex -R .eeprom $< $@
+
+%.out: %.c
+	$(CC) $(CFLAGS)  $< -o $@
 
 clean:
-	rm -rf *.o *.hex a.out
+	rm -rf *.o *.hex *.out
 
-upload:	a.hex
-	avrdude -c usbasp -p m328p -U flash:w:a.hex
+upload:	helloworld.hex
+	avrdude -c usbasp -p m328p -U flash:w:$<
 
 .PHONY:	clean
 
